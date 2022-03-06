@@ -11,19 +11,18 @@ class Dots:
         self.x = x
         self.y = y
         self.thickness = thickness
-        self.color = color.lower()
-
-    def pickColor(self):
-        if(self.color == "red"):
-            t.color = "red"
-        elif(self.color == "green"):
-            t.color = "green"
-        elif(self.color == "blue"):
-            t.color = "blue"
-        elif(self.color == "black"):
-            t.color = "black"
+        if(self.isValidColor(color)):
+            self.color = color.lower()
         else:
-            raise ValueError(f'You need to pick a color in the RGB range or black. (red, green, blue)')
+            raise ValueError(f'You need to pick a color within the range of RGB values (red, green, blue) or black')
+
+    def isValidColor(self, color):
+        color = color.lower()
+        if(color == "red" or color == "green" or color == "blue" or color == "black"):
+            return True
+        else:
+            return False
+        
 
     def reLocate(self):
         pass
