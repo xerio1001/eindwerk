@@ -1,29 +1,28 @@
 class Dots:
-    def __init__(self):
-        pass
-
-    def location(self):
-        pass
-
-    def thickness(self):
-        pass
-
-    def color(self):
-        pass
+    def __init__(self, x:int, y:int, thickness:int, color:str):
+        self.x = x
+        self.y = y
+        self.thickness = thickness
+        self.color = color
 
     def reLocate(self):
         pass
 
-
-class Polygon:
-    def triangle(self):
-        pass
-
-    def rectangle(self):
-        pass
-
-    def triangle(self):
-        pass
-
     def reSize(self):
-        pass
+        return NotImplemented
+
+
+class Triangle(Dots):
+    pass
+
+
+class Rectangle(Dots):
+    pass
+
+
+class Triangle(Dots):
+    pass
+
+
+class Polygon(Dots):
+    pass
