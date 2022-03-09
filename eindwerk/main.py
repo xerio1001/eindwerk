@@ -1,3 +1,5 @@
+from math import sin, cos, radians
+from re import M
 import turtle
 
 turtle.title("Draw Polygons")
@@ -20,7 +22,7 @@ class Dots:
 
 
 class Triangle:
-    def __init__(self, *args):
+    def __init__(self, *args:int):
         self.dots = args
 
     def isValidColor(self, color):
@@ -50,20 +52,36 @@ class Triangle:
                 t.pendown()
 
             t.goto(self.dots[0].x, self.dots[0].y)
+        
+    def reLocate(self, deltaX:int, deltaY:int):
+        self.deltaX = deltaX
+        self.deltaY = deltaY
+
+        for dot in self.dots:
+            dot.x += self.deltaX
+            dot.y += self.deltaY
+
+    def rotate(self, point:tuple, degree:int):
+        self.degree = radians(degree)
+        for dot in self.dots:
+            tempX = dot.x
+            tempY = dot.y
+
+            tempX -= point[0]
+            tempY -= point[1]
+
+            dot.x = (tempX * cos(self.degree) - tempY * sin(self.degree)) + point[0]
+            dot.y = (tempY * cos(self.degree) + tempX * sin(self.degree)) + point[1]
+
+            dot.x = round(dot.x)
+            dot.y = round(dot.y)
 
 
 class Square:
-    def __init__(self, *args, length):
+    def __init__(self, *args:int, length:int):
         self.dots = args
         self.length = length
         self.getCorners()
-
-    def isValidColor(self, color):
-        color = color.lower()
-        if color == "red" or color == "green" or color == "blue" or color == "black":
-            return True
-        else:
-            return False
 
     def getCorners(self):
         p1 = self.dots[0] # Example: Bottom left
@@ -75,7 +93,14 @@ class Square:
         self.dots.clear()
         self.dots.extend((p1, p2, p3, p4))
 
-    def draw(self, color, thickness):
+    def isValidColor(self, color:str):
+        color = color.lower()
+        if color == "red" or color == "green" or color == "blue" or color == "black":
+            return True
+        else:
+            return False
+
+    def draw(self, color:str, thickness:int):
         if self.isValidColor(color):
             self.color = color.lower()
         else:
@@ -98,19 +123,81 @@ class Square:
 
 
 class Rectangle:
-    def __init__(self, *args):
+    def __init__(self, *args:int, length:int, height:int):
         self.dots = args
+        self.length = length
+        self.height = height
+        self.getCorners()
 
-    def reSize(self):
-        pass
+    def getCorners(self):
+        p1 = self.dots[0] # Example: Bottom left
+        p2 = Dots(p1.x + self.length, p1.y) # Example: Bottom right
+        p3 = Dots(p1.x + self.length, p1.y + self.height) # Example: Top right
+        p4 = Dots(p1.x, p1.y + self.height) # Example: Top left
+
+        self.dots = list(self.dots)
+        self.dots.clear()
+        self.dots.extend((p1, p2, p3, p4))        
+
+    def isValidColor(self, color:str):
+        color = color.lower()
+        if color == "red" or color == "green" or color == "blue" or color == "black":
+            return True
+        else:
+            return False
+
+    def draw(self, color:str, thickness:int):
+        if self.isValidColor(color):
+            self.color = color.lower()
+        else:
+            raise ValueError(f'Give a color within the range of RGB or the color "black".')
+        
+        if thickness <= 0:
+            raise ValueError(f'The thickness of the line cannot be lower than or equal to 0')
+        else:
+            self.thickness = thickness
+
+        t.color(self.color)
+        t.pensize(self.thickness)
+        t.penup()
+        for dot in self.dots:
+            t.goto(dot.x, dot.y)
+            t.pendown()
+        t.goto(self.dots[0].x, self.dots[0].y)
+
 
 
 class Polygon:
-    def __init__(self):
-        pass
+    def __init__(self, *args:int):
+        self.dots = args
+
+    def isValidColor(self, color:str):
+        color = color.lower()
+        if color == "red" or color == "green" or color == "blue" or color == "black":
+            return True
+        else:
+            return False
+
+    def draw(self, color:str, thickness:int):
+        if self.isValidColor(color):
+            self.color = color.lower()
+        else:
+            raise ValueError(f'Give a color within the range of RGB or the color "black".')
+        
+        if thickness <= 0:
+            raise ValueError(f'The thickness of the line cannot be lower than or equal to 0')
+        else:
+            self.thickness = thickness
+
+        t.color(self.color)
+        t.pensize(self.thickness)
+        t.penup()
+        for dot in self.dots:
+            t.goto(dot.x, dot.y)
+            t.pendown()
+        t.goto(self.dots[0].x, self.dots[0].y)
 
 #turtle.mainloop()
-
 
 """
 In het tekenprogramma is het de bedoeling dat men punten kan plaatsen.
