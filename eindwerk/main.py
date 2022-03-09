@@ -1,5 +1,4 @@
 from math import sin, cos, radians
-from re import M
 import turtle
 
 turtle.title("Draw Polygons")
@@ -66,13 +65,10 @@ class Triangle:
         for dot in self.dots:
             tempX = dot.x
             tempY = dot.y
-
             tempX -= point[0]
             tempY -= point[1]
-
             dot.x = (tempX * cos(self.degree) - tempY * sin(self.degree)) + point[0]
             dot.y = (tempY * cos(self.degree) + tempX * sin(self.degree)) + point[1]
-
             dot.x = round(dot.x)
             dot.y = round(dot.y)
 
