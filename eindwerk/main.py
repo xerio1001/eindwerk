@@ -133,15 +133,3 @@ class Polygon(FigureFunctions):
     pass
 
 #turtle.mainloop()
-
-"""
-In het tekenprogramma is het de bedoeling dat men punten kan plaatsen.
-En willekeurige veelhoeken kan tekenen door meerdere punten te plaatsen. Alle veelhoeken hebben een lijndikte en kleur. Deze worden gebruikt in de draw method.
-Rechthoeken kan tekenen door 1 punt te plaatsen en een hoogte en breedte mee te geven.  Of door 2 punten te tekenen.
-Driehoeken kan tekenen.
-En vierkanten kan tekenen door 1 punt en een lengte mee te geven.
-
-Alles kan verplaatst worden door een verplaatsing in de x en y richting mee te geven.
-Rechthoeken en vierkanten kunnen resized worden door een hoekpunt te verslepen. Dit doe je door het oud hoekpunt en het nieuwhoek punt mee te geven.  Tip: Hier kan je hoekpunten vergelijken met == bijv.
-Alles kan geroteerd worden door een punt mee te geven en een hoek in graden. Dit zorgt voor een rotatie van je veelhoek/punt met die bepaalde hoek rond dat punt.
-"""
