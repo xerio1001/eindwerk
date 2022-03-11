@@ -62,8 +62,6 @@ class FigureFunctions: # Master class
             t.pendown()
         t.goto(self.dots[0].x, self.dots[0].y)
 
-
-class Triangle(FigureFunctions): 
     def reLocate(self, deltaX:int, deltaY:int):
         self.deltaX = deltaX
         self.deltaY = deltaY
@@ -71,6 +69,14 @@ class Triangle(FigureFunctions):
         for dot in self.dots:
             dot.x += self.deltaX
             dot.y += self.deltaY
+
+
+class Triangle(FigureFunctions): 
+    pass
+
+
+class Polygon(FigureFunctions):
+    pass
 
 
 class Square (FigureFunctions):
@@ -127,9 +133,5 @@ class Rectangle(FigureFunctions):
                 dot.x = newDot[0]
             if(dot.y == oldDot[1]):
                 dot.y = newDot[1]
-
-
-class Polygon(FigureFunctions):
-    pass
 
 #turtle.mainloop()
