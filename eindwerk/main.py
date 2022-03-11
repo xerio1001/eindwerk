@@ -24,6 +24,13 @@ class FigureFunctions: # Master class
     def __init__(self, *args:int):
         self.dots = args
 
+    def isValidColor(self, color:str):
+        color = color.lower()
+        if color == "red" or color == "green" or color == "blue" or color == "black":
+            return True
+        else:
+            return False
+
     def rotate(self, point:tuple, degree:int):
         self.degree = radians(degree)
         for dot in self.dots:
@@ -36,12 +43,13 @@ class FigureFunctions: # Master class
             dot.x = round(dot.x)
             dot.y = round(dot.y)
 
-    def isValidColor(self, color:str):
-        color = color.lower()
-        if color == "red" or color == "green" or color == "blue" or color == "black":
-            return True
-        else:
-            return False
+    def reLocate(self, deltaX:int, deltaY:int):
+        self.deltaX = deltaX
+        self.deltaY = deltaY
+
+        for dot in self.dots:
+            dot.x += self.deltaX
+            dot.y += self.deltaY
 
     def draw(self, color:str, thickness:int):
         if self.isValidColor(color):
@@ -61,14 +69,6 @@ class FigureFunctions: # Master class
             t.goto(dot.x, dot.y)
             t.pendown()
         t.goto(self.dots[0].x, self.dots[0].y)
-
-    def reLocate(self, deltaX:int, deltaY:int):
-        self.deltaX = deltaX
-        self.deltaY = deltaY
-
-        for dot in self.dots:
-            dot.x += self.deltaX
-            dot.y += self.deltaY
 
 
 class Triangle(FigureFunctions): 
