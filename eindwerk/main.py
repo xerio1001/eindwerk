@@ -20,45 +20,9 @@ class Dots:
         pass
 
 
-class Triangle:
+class FigureFunctions:
     def __init__(self, *args:int):
         self.dots = args
-
-    def isValidColor(self, color):
-        color = color.lower()
-        if color == "red" or color == "green" or color == "blue" or color == "black":
-            return True
-        else:
-            return False
-
-    def draw(self, color, thickness, test:bool = False):
-        if self.isValidColor(color):
-            self.color = color.lower()
-        else:
-            raise ValueError(f'Give a color within the range of RGB or the color "black".')
-        
-        if thickness <= 0:
-            raise ValueError(f'The thickness of the line cannot be lower than or equal to 0')
-        else:
-            self.thickness = thickness
-
-        if test == False:
-            t.penup()
-            t.color(self.color)
-            t.pensize(self.thickness)
-            for dot in self.dots:
-                t.goto(dot.x, dot.y)
-                t.pendown()
-
-            t.goto(self.dots[0].x, self.dots[0].y)
-        
-    def reLocate(self, deltaX:int, deltaY:int):
-        self.deltaX = deltaX
-        self.deltaY = deltaY
-
-        for dot in self.dots:
-            dot.x += self.deltaX
-            dot.y += self.deltaY
 
     def rotate(self, point:tuple, degree:int):
         self.degree = radians(degree)
@@ -71,23 +35,6 @@ class Triangle:
             dot.y = (tempY * cos(self.degree) + tempX * sin(self.degree)) + point[1]
             dot.x = round(dot.x)
             dot.y = round(dot.y)
-
-
-class Square:
-    def __init__(self, *args:int, length:int):
-        self.dots = args
-        self.length = length
-        self.getCorners()
-
-    def getCorners(self):
-        p1 = self.dots[0] # Example: Bottom left
-        p2 = Dots(p1.x + self.length, p1.y) # Example: Bottom right
-        p3 = Dots(p1.x + self.length, p1.y + self.length) # Example: Top right
-        p4 = Dots(p1.x, p1.y + self.length) # Example: Top left
-
-        self.dots = list(self.dots)
-        self.dots.clear()
-        self.dots.extend((p1, p2, p3, p4))
 
     def isValidColor(self, color:str):
         color = color.lower()
@@ -109,18 +56,57 @@ class Square:
 
         t.color(self.color)
         t.pensize(self.thickness)
+        t.penup()
         for dot in self.dots:
             t.goto(dot.x, dot.y)
             t.pendown()
         t.goto(self.dots[0].x, self.dots[0].y)
 
-    def reSize(self):
-        pass
+
+class Triangle(FigureFunctions): 
+    def reLocate(self, deltaX:int, deltaY:int):
+        self.deltaX = deltaX
+        self.deltaY = deltaY
+
+        for dot in self.dots:
+            dot.x += self.deltaX
+            dot.y += self.deltaY
 
 
-class Rectangle:
+class Square (FigureFunctions):
+    def __init__(self, *args:int, length:int):
+        super().__init__(*args)
+        self.length = length
+        self.getCorners()
+
+    def getCorners(self):
+        p1 = self.dots[0] # Example: Bottom left
+        p2 = Dots(p1.x + self.length, p1.y) # Example: Bottom right
+        p3 = Dots(p1.x + self.length, p1.y + self.length) # Example: Top right
+        p4 = Dots(p1.x, p1.y + self.length) # Example: Top left
+
+        self.dots = list(self.dots)
+        self.dots.clear()
+        self.dots.extend((p1, p2, p3, p4))
+
+    def reSize(self, oldDot:tuple, newDot:tuple):
+        tempDotX = newDot[0] - oldDot[0]
+        tempDotY = newDot[1] - oldDot[1]
+        abs(tempDotX)
+        abs(tempDotY)
+        if(tempDotX == tempDotY):
+            for dot in self.dots:
+                if(dot.x == oldDot[0]):
+                    dot.x = newDot[0]
+                if(dot.y == oldDot[1]):
+                    dot.y = newDot[1]
+        else:
+            raise ValueError(f'These values will no longer result in a square.')
+
+
+class Rectangle(FigureFunctions):
     def __init__(self, *args:int, length:int, height:int):
-        self.dots = args
+        super().__init__(*args)
         self.length = length
         self.height = height
         self.getCorners()
@@ -135,63 +121,16 @@ class Rectangle:
         self.dots.clear()
         self.dots.extend((p1, p2, p3, p4))        
 
-    def isValidColor(self, color:str):
-        color = color.lower()
-        if color == "red" or color == "green" or color == "blue" or color == "black":
-            return True
-        else:
-            return False
-
-    def draw(self, color:str, thickness:int):
-        if self.isValidColor(color):
-            self.color = color.lower()
-        else:
-            raise ValueError(f'Give a color within the range of RGB or the color "black".')
-        
-        if thickness <= 0:
-            raise ValueError(f'The thickness of the line cannot be lower than or equal to 0')
-        else:
-            self.thickness = thickness
-
-        t.color(self.color)
-        t.pensize(self.thickness)
-        t.penup()
+    def reSize(self, oldDot:tuple, newDot:tuple):
         for dot in self.dots:
-            t.goto(dot.x, dot.y)
-            t.pendown()
-        t.goto(self.dots[0].x, self.dots[0].y)
+            if(dot.x == oldDot[0]):
+                dot.x = newDot[0]
+            if(dot.y == oldDot[1]):
+                dot.y = newDot[1]
 
 
-
-class Polygon:
-    def __init__(self, *args:int):
-        self.dots = args
-
-    def isValidColor(self, color:str):
-        color = color.lower()
-        if color == "red" or color == "green" or color == "blue" or color == "black":
-            return True
-        else:
-            return False
-
-    def draw(self, color:str, thickness:int):
-        if self.isValidColor(color):
-            self.color = color.lower()
-        else:
-            raise ValueError(f'Give a color within the range of RGB or the color "black".')
-        
-        if thickness <= 0:
-            raise ValueError(f'The thickness of the line cannot be lower than or equal to 0')
-        else:
-            self.thickness = thickness
-
-        t.color(self.color)
-        t.pensize(self.thickness)
-        t.penup()
-        for dot in self.dots:
-            t.goto(dot.x, dot.y)
-            t.pendown()
-        t.goto(self.dots[0].x, self.dots[0].y)
+class Polygon(FigureFunctions):
+    pass
 
 #turtle.mainloop()
 

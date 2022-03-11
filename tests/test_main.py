@@ -44,7 +44,7 @@ def test_isValidTriangleConstructor(triangleDummy1):
 
 
 def test_areValidArguments(triangleDummy1):
-    triangleDummy1.draw("blue", 5, True)
+    triangleDummy1.draw("blue", 5)
     assert (
     triangleDummy1.color == "blue" 
     and triangleDummy1.thickness == 5 
