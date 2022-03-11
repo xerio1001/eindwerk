@@ -20,7 +20,7 @@ class Dots:
         pass
 
 
-class FigureFunctions:
+class FigureFunctions: # Master class
     def __init__(self, *args:int):
         self.dots = args
 
